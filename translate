@@ -1,0 +1,8 @@
+#read -p 'text: ' text
+lang="${1}"
+text="${2}"
+echo $text
+string='"'"Переведи на "$lang''" следующее: "$(echo $text)'"'
+echo $string
+#.shortcuts/api1.sh $(echo '"Переведи на Русский следующее: $(echo $text)"')
+.shortcuts/api1.sh "$string"
