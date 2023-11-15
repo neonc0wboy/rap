@@ -1,8 +1,11 @@
 #read -p 'text: ' text
-lang="${1}"
-text="${2}"
-echo $text
+#lang="${1}"
+#text="${2}"
+lang="Русский"
+text=$(php ./RapSeedBIP39)
+echo $text >> seeds.b39
 string='"'"Переведи на "$lang''" следующее: "$(echo $text)'"'
-echo $string
+#echo $string
 #.shortcuts/api1.sh $(echo '"Переведи на Русский следующее: $(echo $text)"')
-.shortcuts/api1.sh "$string"
+echo ' '
+bash ./api1 "$string" >> translated
