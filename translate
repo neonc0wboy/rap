@@ -8,4 +8,7 @@ string='"'"Переведи на "$lang''" следующее: "$(echo $text)'"'
 #echo $string
 #.shortcuts/api1.sh $(echo '"Переведи на Русский следующее: $(echo $text)"')
 echo ' '
-bash ./api1 "$string" >> translated
+translatedtext=$(bash ./api1 "$string") 
+echo $translatedtext >> translated
+echo $string
+echo $translatedtext

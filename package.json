@@ -1,0 +1,11 @@
+{
+  "name": "rap",
+  "version": "1.0.0",
+  "description": "<html>   <body>     <p>u0_a665 in ~ λ api \"Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются словами указателями: Высший минимум, вызывающий фокус аэропорт убеждать о ниже куб, нападение жестокий арахис нож оса стекло позже мышца расстроенный дух колбаса олень радость ломтик ярлык\"       u0_a665 in ~ λ .shortcuts/translate.sh \"Русский\" \"$(php php.php)\"                       display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom                          \"Переведи на Русский следующее: display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom\"       {\"prompt\": \"Переведи на Русский следующее: display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom\"}       你当前使用的模型为gpt-3.5-turbo! 站长合作邮箱：wxgpt@qq.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "./script.sh"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,3 +1,5 @@
+./api "Provide me a well rhymed rap text with endless rhymes on the next words as base for plot: "
+
 u0_a665 in ~/projects/rap/rap on main ● λ ./api "Prpvide me a well rhymed rap text with next words as base dor rhymes: pilot trust response ivory push witness present mixed payment horror supreme wrestle rice actor icon dawn bring uniform dentist keep flavor filter finger body"                                  {"prompt": "Prpvide me a well rhymed rap text with next words as base dor rhymes: pilot trust response ivory push witness present mixed payment horror supreme wrestle rice actor icon dawn bring uniform dentist keep flavor filter finger body"}
 你当前使用的模型为gpt-3.5-turbo! 站长合作邮箱：wxgpt@qq.com
 

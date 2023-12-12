@@ -1,0 +1,7 @@
+{"timestamp":"2023-12-12T02:07:25.155+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+{"timestamp":"2023-12-12T02:09:40.390+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+{"timestamp":"2023-12-12T02:10:00.781+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+{"timestamp":"2023-12-12T02:10:52.210+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+{"timestamp":"2023-12-12T02:11:30.065+00:00","status":400,"error":"Bad Request","path":"/v3/completions"}{"timestamp":"2023-12-12T02:11:51.493+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+{"timestamp":"2023-12-12T02:12:15.214+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+{"timestamp":"2023-12-12T02:19:17.963+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
