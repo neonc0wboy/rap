@@ -1,8 +1,10 @@
 <?php
 
 // Set the path to the wordlist file
-$wordlist_path = '/data/data/com.termux/files/home/bkup0412/projects/rap/rap/wordlist.txt';
-$wordlist_path1 = '/data/data/com.termux/files/home/bkup0412/projects/rap/rap/wrus.txt';
+$wordlist_path = './wordlist.txt';
+//'/data/data/com.termux/files/home/bkup0412/projects/rap/rap/wordlist.txt';
+$wordlist_path1 = './wrus.txt';
+//'/data/data/com.termux/files/home/bkup0412/projects/rap/rap/wrus.txt';
 // Set the number of words in the seed phrase
 $num_words = 16;
 
