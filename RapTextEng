@@ -1,16 +1,27 @@
 #!/bin/bash
 
-# Get the last line from seeds.b39 file
-prompt=$(tail -n 1 ./seeds.b39)
+# Function to make API call
+api_call() {
+  local prompt="$1"
+  local api_output_file="$2"
+
+  if ! ./api1 "$prompt" >> "$api_output_file"; then
+    echo "Error: Failed to execute api1 command for $prompt"
+    exit 1
+  fi
+  echo "" >> "$api_output_file"
+}
+
+# Get the last line from seeds.b39
+last_line=$(tail -n 1 ./seeds.b39)
 
 # Call the API with the prompt and append the result to EngRap.text
-./api1 "Provide me a well rhymed rap text with endless rhymes on the next words as base for plot for 2 verses and bridge with chorusfor rap battle: $prompt" >> EngRap.text
-echo "" >> EngRap.text
+api_call "Provide me a well rhymed rap text with endless rhymes on the next words as base for plot for 2 verses and bridge with chorusfor rap battle: $last_line" EngRap.text
 
 # Translate the prompt to Russian
-russian_prompt=$(./translate "$prompt")
+russian_prompt=$(./translate "$last_line")
 
 # Call the API with the translated prompt and append the result to RuRap.text
-./api1 "Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются seed фразой $russian_prompt на основе текста $(tail -n 1 EngRap.text)" >> RuRap.text
+api_call "Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются seed фразой $russian_prompt на основе текста $(tail -n 1 EngRap.text)" RuRap.text
 echo "" >> RuRap.text
 echo "" >> RuRap.text
