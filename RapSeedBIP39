@@ -1,44 +1,46 @@
 #!/usr/bin/php
 <?php
 
-// Function to generate entropy
+/**
+ * Generate entropy using /dev/urandom
+ *
+ * @param int $length The length of the entropy in bits. Defaults to 256.
+ * @return string The entropy as a binary string.
+ */
 function generateEntropy($length = 256) {
+    if (!is_int($length) || $length < 1 || $length % 8 != 0) {
+        throw new InvalidArgumentException("Length must be a multiple of 8 and greater than 0.");
+    }
+
     $urandom = fopen('/dev/urandom', 'r');
+    if (!$urandom) {
+        throw new RuntimeException("Failed to open /dev/urandom.");
+    }
+
     $bytes = fread($urandom, $length/8);
     fclose($urandom);
-    return str_pad(gmp_strval(gmp_init(bin2hex($bytes), 16), 2), $length, "0", STR_PAD_LEFT);
+
+    return $bytes;
 }
 
-// Function to convert entropy to mnemonic
-function entropyToMnemonic($entropy) {
-    $size = strlen($entropy) / 32;
-    $hex = str_pad(gmp_strval(gmp_init($entropy, 2), 16), strlen($entropy)/8*2, "0", STR_PAD_LEFT);
-    $hash = hash("sha256", hex2bin($hex));
-    $checksum = substr(str_pad(gmp_strval(gmp_init($hash, 16), 2), 256, "0", STR_PAD_LEFT), 0, $size);
-    $pieces = str_split($entropy.$checksum, 11);
-    $wordlist = file("wordlist.txt", FILE_IGNORE_NEW_LINES);
-    $words = [];
-    foreach ($pieces as $piece) {
-        $i = bindec($piece);
-        $words[] = $wordlist[$i];
+/**
+ * Convert entropy to a mnemonic phrase
+ *
+ * @param string $entropy The entropy as a binary string.
+ * @param string $wordlist_file The path to the word list file. Defaults to 'wordlist.txt'.
+ * @return string The mnemonic phrase as a space-separated string.
+ */
+function entropyToMnemonic($entropy, $wordlist_file = "wordlist.txt") {
+    if (strlen($entropy) % 8 != 0) {
+        throw new InvalidArgumentException("Entropy length must be a multiple of 8.");
     }
-    return implode(" ", $words);
-}
 
-// Function to generate seed from mnemonic
-function mnemonicToSeed($mnemonic, $passphrase = "") {
-    return bin2hex(hash_pbkdf2("sha512", $mnemonic, "mnemonic".$passphrase, 2048, 64, true));
-}
+    $wordlist = file($wordlist_file, FILE_IGNORE_NEW_LINES);
+    if (!$wordlist) {
+        throw new RuntimeException("Failed to open word list file.");
+    }
 
-// Generate entropy
-$entropy = generateEntropy();
-echo "Entropy: $entropy\n";
+    $size = strlen($entropy) / 32;
+    $hex = bin2hex($entropy);
+    $hash = hash("sha256", hex2bin($hex));
 
-// Convert entropy to mnemonic
-$wordlist = file("wordlist.txt", FILE_IGNORE_NEW_LINES);
-$mnemonic = entropyToMnemonic($entropy);
-echo "Mnemonic: $mnemonic\n";
-
-// Generate seed from mnemonic
-$seed = mnemonicToSeed($mnemonic);
-echo "Seed: $seed\n";
