@@ -1,17 +1,33 @@
-nohup: ignoring input
-nohup: failed to run command './script.sh': No such file or directory
-nohup: ignoring input
-nohup: failed to run command 'script.sh': No such file or directory
-nohup: ignoring input
-/data/data/com.termux/files/home/projects/rap/rap/script.sh: line 3: .shortcuts/translate.sh: No such file or directory
+mkdir -p .shortcuts
+cp /path/to/translate.sh .shortcuts/
 
-nohup: ignoring input
 
-nohup: ignoring input
+chmod +x script.sh
 
-nohup: ignoring input
-nohup: failed to run command '/data/data/com.termux/files/home/projects/rap/rap/index.html': Permission denied
-nohup: ignoring input
-nohup: failed to run command './index.html': Permission denied
-nohup: ignoring input
+
+#!/bin/bash
+
+# Correct path to translate.sh
+translate_sh="./.shortcuts/translate.sh"
+
+# Check if translate.sh exists
+if [ ! -f "$translate_sh" ]; then
+    echo "Error: $translate_sh not found!"
+    exit 1
+fi
+
+# Source translate.sh
+if ! source "$translate_sh"; then
+    echo "Error: Failed to source $translate_sh"
+    exit 1
+fi
+
+# Rest of your script
+# ...
+
+# Example of running a command that requires permission
+# Replace /path/to/yourfile.html with the actual path
+if ! nohup open -a "Google Chrome" /path/to/yourfile.html &> nohup.out; then
+    echo "Error: Failed to open HTML file in Google Chrome"
+fi
 
