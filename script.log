@@ -1,24 +1,27 @@
-mkdir -p .shortcuts
-cp /path/to/translate.sh .shortcuts/
-
-
-chmod +x script.sh
-
-
 #!/bin/bash
 
-# Correct path to translate.sh
-translate_sh="./.shortcuts/translate.sh"
+# Define constants
+SHORTCUTS_DIR="$HOME/.shortcuts"
+TRANSLATE_SH="/path/to/translate.sh"
+SCRIPT_NAME="$(basename "$0")"
 
-# Check if translate.sh exists
-if [ ! -f "$translate_sh" ]; then
-    echo "Error: $translate_sh not found!"
+# Create shortcuts directory if it doesn't exist
+mkdir -p "$SHORTCUTS_DIR"
+
+# Copy translate.sh to shortcuts directory if it doesn't exist there
+if [ ! -f "$SHORTCUTS_DIR/translate.sh" ]; then
+    cp "$TRANSLATE_SH" "$SHORTCUTS_DIR/translate.sh"
+fi
+
+# Check if translate.sh exists and is executable
+if [ ! -x "$SHORTCUTS_DIR/translate.sh" ]; then
+    echo "Error: $SHORTCUTS_DIR/translate.sh not found or not executable!"
     exit 1
 fi
 
 # Source translate.sh
-if ! source "$translate_sh"; then
-    echo "Error: Failed to source $translate_sh"
+if ! source "$SHORTCUTS_DIR/translate.sh"; then
+    echo "Error: Failed to source $SHORTCUTS_DIR/translate.sh"
     exit 1
 fi
 
