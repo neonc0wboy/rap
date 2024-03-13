@@ -1,8 +1,23 @@
-{"timestamp":"2023-12-12T02:07:25.757+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:09:40.982+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:10:01.293+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:10:52.916+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:11:52.324+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:12:15.910+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:19:18.550+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2024-02-25T09:42:19.849+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+import time
+import datetime
+import argparse
+
+def generate_bad_requests(minutes, frequency=1):
+    start_time = datetime.datetime.now()
+    end_time = start_time + datetime.timedelta(minutes=minutes)
+
+    while datetime.datetime.now() < end_time:
+        current_time = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "+00:00"
+        print(f'{{"timestamp":"{current_time}","status":400,"error":"Bad Request","path":"/v3/completions"}}')
+        time.sleep(60 / frequency)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Generate bad request logs.')
+    parser.add_argument('minutes', type=int, help='Number of minutes to generate logs for')
+    parser.add_argument('--frequency', type=int, default=1, help='Frequency of the requests (default: 1)')
+    args = parser.parse_args()
+
+    generate_bad_requests(args.minutes, args.frequency)
+
+
+python generate_bad_requests.py <minutes> [--frequency=<frequency>]
