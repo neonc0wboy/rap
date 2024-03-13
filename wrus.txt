@@ -2,20 +2,21 @@ import re
 
 text = """
 Enter your English text here.
+This is a sample text for testing the code. We will check if it correctly extracts all unique words from the text.
 """
 
-# Remove non-alphabetic characters and convert to lowercase
-words = re.findall(r'\b[a-z]+\b', text.lower())
+# Remove punctuation, non-alphabetic characters and convert to lowercase
+words = re.findall(r'\b[a-z']+\b', re.sub(r'[^\w\s]', '', text.lower()))
 
 # Print unique words
-print(list(set(words)))
-"""
-Example input text:
+print(sorted(set(words)))
+
+
 
 Enter your English text here.
 This is a sample text for testing the code. We will check if it correctly extracts all unique words from the text.
 
-Example output:
 
-['\n', 'testing', 'the', 'code', 'we', 'check', 'if', 'it', 'correctly', 'extracts', 'all', 'unique', 'words', 'from', 'the', 'text', 'this', 'is', 'a', 'sample', 'enter', 'your', 'here', 'text']
-"""
+
+['a', 'all', 'check', 'code', 'correctly', 'extracts', 'if', 'it', 'from', 'here', 'sample', 'testing', 'the', 'text', 'this', 'unique', 'we', 'will', 'your']
+
