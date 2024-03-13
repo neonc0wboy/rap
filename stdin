@@ -1,38 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Rap Generator</title>
+  <style>
+    #output {
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="input">
     <p>
-      <span id="source-text">u0_a665 in ~ λ api "Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются словами указателями: Высший минимум, вызывающий фокус аэропорт убеждать о ниже куб, нападение жестокий арахис нож оса стекло позже мышца расстроенный дух колбаса олень радость ломтик ярлык"</span><br /><br />
+      <span id="source-text">u0_a666 in ~ λ api "Write a well-rhymed rap text in Russian with the following words, which are seed phrases: Высший минимум, вызывающий фокус аэропорт убеждать о ниже куб, нападение жестокий арахис нож оса стекло позже мышца расстроенный дух колбаса олень радость ломтик ярлык"</span><br /><br />
 
-      <span id="translated-text">u0_a665 in ~ λ .shortcuts/translate.sh "Russian" "$(php php.php)"</span><br /><br />
+      <button id="translate-button">Translate to Russian</button><br /><br />
 
-      <span id="api-request">{"prompt": "Translate to Russian: display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom"}</span><br /><br />
+      <span id="translated-text"></span><br /><br />
+
+      <button id="api-request-button">Generate Rap Text</button><br /><br />
+
+      <span id="api-request"></span><br /><br />
 
       <span id="model-info">You are currently using model gpt-3.5-turbo! Contact email for cooperation: wxgpt@qq.com</span><br /><br />
 
-      <span id="result">Показывать синий включить общественный сбежать твердый починка столб двигатель воздух верить пианино будет серия головокружительный юмор панель сестра взбираться уточнить вещь заслуга крайний низ%</span><br /><br />
+      <span id="result"></span><br /><br />
 
-      <span id="api-request-rap">{"prompt": "Write a well-rhymed rap text in Russian with the following words, which are seed phrases: показывать синий включить общественный сбежать твердый починка столб двигатель воздух верить пианино будет серия головокружительный юмор панель сестра взбираться уточнить вещь заслуга крайний низ%"}</span><br /><br />
+      <span id="api-request-rap"></span><br /><br />
 
-      <span id="result-rap">Показывать свой стиль, синий костюм включить,<br />
-        В общественной сфере, чтобы всех удивить.<br />
-        Сбежать от проблем, твердо стоять на ногах,<br />
-        Починка души, как столб, никогда не сломать.<br />
-
-        Двигатель рифм работает на полную мощность,<br />
-        Воздух наполняет легкие, сила воображенья.<br />
-        Верить в себя, как в пианино сотни клавиш,<br />
-        Будет серия успехов, как головокружительный спираль.<br />
-
-        Юмор – мой союзник, в каждой строчке он присутствует,<br />
-        Панель словами, сестра, разнообразие творит.<br />
-        Взбираться на вершины, словно горы высокие,<br />
-        Уточнить свою вещь, чтобы быть уникальным и ярким.<br />
-
-        Заслуга в каждом слове, в каждом моем куплете,<br />
-        Крайний рэп, который кардинально меняет лик.<br />
-        Низ% не важен, когда сильна моя песня,<br />
-        Русский рэп – это моя страсть, это мое творение.</span><br /><br />
+      <span id="result-rap"></span><br /><br />
     </p>
-  </body>
-</html>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    const translateButton = document.getElementById('translate-button');
+    const apiRequestButton = document.getElementById('api-request-button');
+
+    translateButton.addEventListener('click', () => {
+      const sourceText = document.getElementById('source-text').innerText;
+      const translatedText = document.getElementById('translated-text');
+
+      fetch('/translate.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `text=${encodeURIComponent(sourceText)}&language=ru`
+      })
+      .then(response => response.text())
+      .then(data => {
+        translatedText.innerText = data;
+      });
+    });
+
+    apiRequestButton.addEventListener('click', () => {
+      const apiRequest = document.getElementById('api-request').innerText;
+      const result = document.getElementById('result');
+      const apiRequestRap = document.getElementById('api-request-rap');
+      const resultRap = document.getElementById('result-rap');
+
+      fetch('/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: apiRequest
+      })
+      .then(response => response.json())
+      .then(data => {
+        result.innerText = JSON.stringify(data, null, 2);
+
+        apiRequestRap.innerText = `{"prompt": "Write a well-rhymed rap text in Russian with the following words, which are seed phrases: ${data.choices[0].text.split(' ').join(', ')}"}`;
+
+        return fetch('/generate-rap.php', {
+          method: '
