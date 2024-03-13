@@ -17,11 +17,10 @@ word_list = [
 word_set = set(word_list)
 
 def check_word_in_sentence(sentence):
+    """
+    Check if any word in the sentence is in the word list.
+    :param sentence: str
+    :return: bool
+    """
     try:
-        words = sentence.split()
-    except AttributeError:
-        return False
-
-    has_word = False
-    for word in words:
-        word = word.lower()
+        words = sentence.
