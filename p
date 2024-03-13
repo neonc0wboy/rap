@@ -35,26 +35,31 @@ function download($url, $destination) {
         echo "Error: Unable to write the downloaded file to the destination.\n";
         exit;
     }
+
+    return $result;
 }
 
 // Function to generate a Bitcoin seed phrase from a wordlist file
-function generateSeedPhrase($wordlistFile) {
-    // Read the wordlist file
-    $words = file($wordlistFile, FILE_IGNORE_NEW_LINES);
+function generateSeedPhrase($wordlist) {
+    // Check if the wordlist is an array
+    if (!is_array($wordlist)) {
+        echo "Error: The wordlist is not an array.\n";
+        exit;
+    }
 
-    // Check if the wordlist file contains enough words
-    if (count($words) < 2048) {
-        echo "Error: The wordlist file does not contain enough words.\n";
+    // Check if the wordlist contains enough words
+    if (count($wordlist) < 2048) {
+        echo "Error: The wordlist does not contain enough words.\n";
         exit;
     }
 
     // Shuffle the word array
-    shuffle($words);
+    shuffle($wordlist);
 
     // Generate the seed phrase
     $seedPhrase = [];
     for ($i = 0; $i < 24; $i++) {
-        $seedPhrase[] = $words[$i];
+        $seedPhrase[] = $wordlist[$i];
     }
 
     return $seedPhrase;
@@ -62,10 +67,11 @@ function generateSeedPhrase($wordlistFile) {
 
 // Download the wordlist file
 $wordlistFile = "./wordlist.txt";
-download("https://neonc0wboy.github.io/rap/wordlist.txt", $wordlistFile);
+$wordlist = download("https://neonc0wboy.github.io/rap/wordlist.txt", $wordlistFile);
 
 // Generate the Bitcoin seed phrase
-$seedPhrase = generateSeedPhrase($wordlistFile);
+$seedPhrase = generateSeedPhrase(explode("\n", $wordlist));
 
 // Print the seed phrase
-echo "Bitcoin seed phrase: " . impl
+echo "Bitcoin seed phrase: " . implode(' ', $seedPhrase) . "\n";
+
