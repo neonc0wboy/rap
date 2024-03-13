@@ -6,13 +6,15 @@
  *
  * @param int $length The length of the entropy in bits. Defaults to 256.
  * @return string The entropy as a binary string.
+ * @throws InvalidArgumentException If the length is not a multiple of 8 or is less than 1.
+ * @throws RuntimeException If opening /dev/urandom fails.
  */
 function generateEntropy($length = 256) {
     if (!is_int($length) || $length < 1 || $length % 8 != 0) {
         throw new InvalidArgumentException("Length must be a multiple of 8 and greater than 0.");
     }
 
-    $urandom = fopen('/dev/urandom', 'r');
+    $urandom = fopen('/dev/urandom', 'rb');
     if (!$urandom) {
         throw new RuntimeException("Failed to open /dev/urandom.");
     }
@@ -29,18 +31,19 @@ function generateEntropy($length = 256) {
  * @param string $entropy The entropy as a binary string.
  * @param string $wordlist_file The path to the word list file. Defaults to 'wordlist.txt'.
  * @return string The mnemonic phrase as a space-separated string.
+ * @throws InvalidArgumentException If the entropy length is not a multiple of 8.
+ * @throws RuntimeException If opening the word list file fails.
  */
 function entropyToMnemonic($entropy, $wordlist_file = "wordlist.txt") {
     if (strlen($entropy) % 8 != 0) {
         throw new InvalidArgumentException("Entropy length must be a multiple of 8.");
     }
 
-    $wordlist = file($wordlist_file, FILE_IGNORE_NEW_LINES);
-    if (!$wordlist) {
+    $wordlist = file($wordlist_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($wordlist === false) {
         throw new RuntimeException("Failed to open word list file.");
     }
 
     $size = strlen($entropy) / 32;
     $hex = bin2hex($entropy);
-    $hash = hash("sha256", hex2bin($hex));
-
+    $hash = hash("sha256", hex2bin($hex), true
