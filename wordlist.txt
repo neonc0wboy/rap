@@ -1,18 +1,7 @@
 word_list = ["apple", "banana", "cherry", "hello", "orange"]
 word = "hello"
 
-if word in word_list:
-    print(f"{word} is in the list.")
-else:
-    print(f"{word} is not in the list.")
-
-
-word_list = ["apple", "banana", "cherry", "hello", "orange"]
-word = "hello"
-
-if word_list is None:
-    print("Error: word_list is not defined.")
-elif word in word_list:
+if word_list is not None and word in word_list:
     print(f"{word} is in the list.")
 else:
     print(f"{word} is not in the list.")
