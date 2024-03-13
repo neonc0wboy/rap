@@ -11,14 +11,14 @@ def compute_stats(numbers):
         - 'mean': The arithmetic mean of the numbers in the list.
         - 'median': The median of the numbers in the list.
     """
-    min_num = min(numbers)
-    max_num = max(numbers)
-    total = sum(numbers)
-    mean = total / len(numbers)
-    sorted_numbers = sorted(numbers)
-    length = len(sorted_numbers)
-    median = (sorted_numbers[length // 2] + sorted_numbers[(length - 1) // 2]) / 2
-    return {'min': min_num, 'max': max_num, 'mean': mean, 'median': median}
+    stats = {}
+    stats['min'] = min(numbers)
+    stats['max'] = max(numbers)
+    stats['mean'] = sum(numbers) / len(numbers)
+    stats['median'] = sorted(numbers)[len(numbers) // 2]
+    if len(numbers) % 2 == 0:
+        stats['median'] = (sorted(numbers)[len(numbers) // 2 - 1] + stats['median']) / 2
+    return stats
 
 numbers = [1986, 547, 605, 608, 735, 1141, 178, 1771, 769, 768, 259, 113, 1573, 1579, 348, 1877]
 stats = compute_stats(numbers)
