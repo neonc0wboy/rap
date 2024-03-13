@@ -1,23 +1,24 @@
 #!/bin/bash
 
+print_error() {
+  >&2 echo "$@"
+}
+
 # Create the JSON payload
-payload=$(jq -n --arg prompt "$1" '{prompt: $prompt}')
+payload=$(jq -rn --arg prompt "$1" '{prompt: $prompt}') || {
+  print_error "jq command failed"
+  exit 1
+}
 
 # Call the API with the JSON payload
 response=$(curl -s -X POST "https://free-api.cveoy.top/v3/completions" \
   -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" \
-  -H "Accept: */*" \
-  -H "Accept-Language: en-US,en;q=0.5" \
-  -H "Accept-Encoding: gzip, deflate, br" \
-  -H "Referer: https://www.cveoy.com/" \
   -H "Content-Type: application/json" \
-  -H "Origin: https://www.cveoy.com" \
-  -H "Connection: keep-alive" \
-  -H "Sec-Fetch-Dest: empty" \
-  -H "Sec-Fetch-Mode: cors" \
-  -H "Sec-Fetch-Site: cross-site" \
-  -H "TE: trailers" \
-  --data-raw "$payload")
+  --data-raw "$payload" || {
+    print_error "curl command failed"
+    exit 1
+  }
+)
 
 # Print the response
 echo "$response"
