@@ -1,2 +1,15 @@
-oil also catalog patrol wish spike what crime prevent forest obvious yellow inspire beef flip despair
-приятель локоть центр шерсть бросать ягуар головоломка арена танцевать учиться ВПП платеж помнить салон королевский область
+import random
+
+# List of words and phrases
+words = [
+ "oil", "also", "catalog", "patrol", "wish", "spike", "what", "crime", "prevent",
+ "forest", "obvious", "yellow", "inspire", "beef", "flip", "despair", "приятель",
+ "локоть", "центр", "шерсть", "бросать", "ягуар", "головоломка", "арена", "танцевать",
+ "учиться", "ВПП", "платеж", "помнить", "салон", "королевский", "область"
+]
+
+# Generate a random string of 5 words
+random_string = " ".join(random.sample(words, 5))
+
+# Print the random string
+print(random_string)
