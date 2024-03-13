@@ -1,15 +1,30 @@
 import os
 import openai
 
+def load\_api\_key():
+"""
+Load the OpenAI API key from environment variable.
+"""
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def chat_completion(prompt):
-    completions = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    message = completions.choices[0].message
-    return message["content"]
+def chat\_completion(prompt):
+"""
+Generate a chat completion using the OpenAI API.
+"""
+if not openai.api_key:
+load\_api\_key()
+
+completions = openai.ChatCompletion.create(
+model="gpt-3.5-turbo",
+messages=[{"role": "user", "content": prompt}]
+)
+
+message = completions.choices[0].message
+return message["content"]
+
+if **name** == "**main**":
+# Load the API key before using the function
+load\_api\_key()
 
 # Example usage
-print(chat_completion("Who is the current president of the United States?"))
+print(chat\_completion("Who is the current president of the United States?"))
