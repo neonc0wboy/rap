@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Generate a new seed using the RapSeedBIP39 script
-seed=$(./RapSeedBIP39)
+if ! seed=$(./RapSeedBIP39); then
+    echo "Error generating seed"
+    exit 1
+fi
 
 # Save the seed to a temporary file
-echo $seed > key.tmp
+echo "$seed" > key.tmp
 
 # Append the seed to the seeds file
-echo $seed >> seeds
+echo "$seed" >> seeds
 
 # Get the last line number from the wnum file
-num=$(wc -l < ./wnum)
+if ! num=$(wc -l < ./wnum); then
+    echo "Error getting line number from wnum"
+    exit 1
+fi
 
-# Create two new wallets with different witness types using the generated seed
-./cli-wallet --create-from-key "$(tail -n 1 key.tmp)" --witness-type legacy --file w[${num}]
-./cli-wallet --create-from-key "$(tail -n 1 key.tmp)" --witness-type segwit --file w[${num}].segwit
-
-# Remove the temporary file
-rm key.tmp
