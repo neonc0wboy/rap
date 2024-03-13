@@ -1,1 +1,9 @@
+def deny_access(words):
+    access_denied = "deny " + " ".join(words)
+    return access_denied
+
+denied_access = deny_access(["manage", "story", "garbage", "organ", "mail", "charge", "loyal", "van", "dismiss", "shove", "job", "destroy", "glory", "tortoise", "fluid", "creek", "biology", "build", "march", "celery", "eager", "engine", "common"])
+print(denied_access)
+
+
 deny manage story garbage organ mail charge loyal van dismiss shove job destroy glory tortoise fluid creek biology build march celery eager engine common
