@@ -9,7 +9,10 @@ words = [
 ]
 
 # Generate a random string of 5 words
-random_string = " ".join(random.sample(words, 5))
+while True:
+    random_string = " ".join(random.sample(words, 5))
+    if len(random_string.split()) == 5:
+        break
 
 # Print the random string
 print(random_string)
