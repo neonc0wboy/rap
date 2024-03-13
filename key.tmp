@@ -1,9 +1,23 @@
 def deny_access(words):
-    access_denied = "deny " + " ".join(words)
+    access_denied = 'deny ' + ' '.join(words)
     return access_denied
 
-denied_access = deny_access(["manage", "story", "garbage", "organ", "mail", "charge", "loyal", "van", "dismiss", "shove", "job", "destroy", "glory", "tortoise", "fluid", "creek", "biology", "build", "march", "celery", "eager", "engine", "common"])
+denied_access = deny_access(
+    ['manage', 'story', 'garbage', 'organ', 'mail', 'charge', 'loyal', 'van', 'dismiss', 'shove', 'job', 'destroy', 'glory', 'tortoise', 'fluid', 'creek', 'biology', 'build', 'march', 'celery', 'eager', 'engine', 'common']
+)
+
 print(denied_access)
 
 
-deny manage story garbage organ mail charge loyal van dismiss shove job destroy glory tortoise fluid creek biology build march celery eager engine common
+def deny_access(words):
+    """
+    Concatenates the word 'deny' with a space-separated list of words.
+
+    Args:
+        words (list): A list of words to concatenate with 'deny'.
+
+    Returns:
+        str: A string in the format 'deny word1 word2 word3 ...'.
+    """
+    access_denied = 'deny ' + ' '.join(words)
+    return access_denied
