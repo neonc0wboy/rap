@@ -7,14 +7,22 @@ if ! seed=$(./RapSeedBIP39); then
 fi
 
 # Save the seed to a temporary file
-echo "$seed" > key.tmp
+if ! echo "$seed" > key.tmp; then
+    echo "Error creating temporary file"
+    exit 1
+fi
 
 # Append the seed to the seeds file
-echo "$seed" >> seeds
+if ! echo "$seed" >> seeds; then
+    echo "Error appending seed to seeds file"
+    exit 1
+fi
 
-# Get the last line number from the wnum file
+# Save the last line number from the wnum file
 if ! num=$(wc -l < ./wnum); then
     echo "Error getting line number from wnum"
     exit 1
 fi
 
+# Print the line number to the console
+echo "Last line number in wnum: $num"
