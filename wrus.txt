@@ -1,22 +1,21 @@
 import re
 
 text = """
-Enter your English text here.
-This is a sample text for testing the code. We will check if it correctly extracts all unique words from the text.
+Enter your English text here. This is a sample text for testing the code. We will check if it correctly extracts all unique words from the text.
 """
 
+# Define a function to remove punctuation and convert to lowercase
+def clean_text(text):
+    return re.sub(r'[^\w\s]', '', text.lower()).strip()
+
 # Remove punctuation, non-alphabetic characters and convert to lowercase
-words = re.findall(r'\b[a-z']+\b', re.sub(r'[^\w\s]', '', text.lower()))
+cleaned_text = clean_text(text)
+
+# Split the cleaned text into words
+words = re.findall(r'\b[a-z]+\b', cleaned_text)
 
 # Print unique words
 print(sorted(set(words)))
 
 
-
-Enter your English text here.
-This is a sample text for testing the code. We will check if it correctly extracts all unique words from the text.
-
-
-
-['a', 'all', 'check', 'code', 'correctly', 'extracts', 'if', 'it', 'from', 'here', 'sample', 'testing', 'the', 'text', 'this', 'unique', 'we', 'will', 'your']
-
+['a', 'all', 'check', 'code', 'correctly', 'extracts', 'from', 'here', 'if', 'it', 'sample', 'testing', 'the', 'this', 'unique', 'we', 'will', 'your']
