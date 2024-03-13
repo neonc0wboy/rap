@@ -1,48 +1,27 @@
-claw strong tortoise round episode buzz found connect skirt palm empower lunar raise remove abandon romance time web trash major river wolf mercy table
-outdoor history nurse fine crunch pull virtual hurdle license rescue depend brown tribe dose online split banner toilet game agree draw staff permit robust
-size ahead raise sausage impose airport equal offer demand among merit excuse welcome knock nut evil gesture message bar sound decorate canoe notice olive
-play admit dignity weasel uniform element runway creek swarm arctic plunge slogan miracle human moon flip nurse slow panda cabin boss corn pluck law
-lecture ability student vanish ozone obtain grant anchor puppy auction north pride ghost plate artist rude night perfect outer item october coil lamp clean
-similar escape mesh rough charge word profit explain boost inform smoke source gun garbage deny habit utility stadium soup width notice raccoon blossom kitten
-head enough strong code hint round snack between carry leaf wool bid chimney arena dignity elegant glide search dune salad acquire return enforce disease
-match ignore ready avoid divide rotate kiss crazy hybrid route trash beyond trash salon core camera other tongue acquire abstract scale victory impulse monster
-galaxy grocery polar unhappy emerge point spend apple coyote little soccer arena road satisfy pistol chalk sense estate that labor oven level valid custom
-pilot trust response ivory push witness present mixed payment horror supreme wrestle rice actor icon dawn bring uniform dentist keep flavor filter finger body
-bar point husband menu kit candy device cook raw blind denial spike test mystery cabbage inform kick tortoise kangaroo refuse stock artwork wine enable
-erode bread simple sad together wide green neglect syrup kitchen asthma flight section marble lobster poverty bless spawn try lucky destroy seminar interest wagon
-blood tomato pilot fitness sleep spread cycle walnut donate fantasy owner paddle between law drill reward develop note harvest oval infant sniff faith saddle
-put shiver prefer adapt dad target when wonder lock emerge vacuum legend also loyal crystal desk attract disease work action process frozen pact throw
-account blast anchor text elite arrow axis plastic pupil reopen fire exile rebuild own rescue snow stock law skull october rocket blossom eye suit
-stone strategy soul local benefit project left client eagle patrol office twenty rebuild submit problem belt tuition issue winter chaos silly awake swamp dish
-inhale miss scheme mother grid account motor shoe sense truth friend train either response weekend vast south cat glimpse garlic fringe mystery wage climb
-build future crash visual view empower giraffe tag absorb earn sting finger crash antenna inner reveal caution dune clay typical tell display bench ocean
-hungry ripple reveal produce token need antique where amateur acquire core refuse garden vacant castle rebel train champion cover hurt boost lab tunnel elephant
-pill cart true found unit kitten squeeze skull glory coral same mansion category later reunion teach defy rubber armor ice van cross pony list
-wait bacon rebuild route right shove frown broccoli gaze ball screen faith another mesh dad trend ticket able regular paddle lion spatial rose erosion
-cargo motor bread adult liquid crawl betray submit manual sing solution virtual real curtain potato vessel amount glimpse crawl gold suit quarter immune switch
-patrol provide equip suit next wife modify fat travel scatter clutch illness cactus sausage mail load cake open canvas combine future sun box flock
-trip rail mandate hybrid length soup poet zero deliver oyster appear sell web nothing manual orange observe elder scrap fly kid all exhaust script
-oxygen morning coyote quantum bind truck festival chicken song chat addict asthma purse employ mammal blind length ginger duty beyond ship congress require shallow
-side donate expect inherit jealous bicycle safe seek real wall outdoor example pony poverty rigid method front glimpse exotic kite tag actress elegant sound
-middle attitude clump rocket skirt include crystal rich thank flush share slot blind caught rate wall gap muscle check entire catalog cost path toe
-world main loan expect skate want mango describe sick height brush inject earth six practice improve bless hair zone expire goddess day device narrow
-pull churn time angle opinion moment pool predict supreme nice office tennis harsh absorb impact refuse economy twin patient drift legend survey exhaust small
-clump imitate copy chuckle horror hungry away oyster honey forest sudden crisp best daughter ghost cabbage gallery develop cousin lend group accident scare since
-fortune inmate vast order all cabin power awkward wheat tourist maximum soup cinnamon process enhance cheap this rebel kiwi april banana supply already spell
-fan goddess original belt ceiling motor unusual song above home dish slow crop noise shine father employ hollow thank ecology elegant act behind love
-lunch impact lunar build judge moral increase ginger like wolf tobacco doll sadness oven biology field beach noodle brand tortoise detect lava spoil during
-before woman bring oppose leisure powder real matter crew elder suit transfer boil manage large swim south suit grow hood salon virtual bike aunt
-furnace dice public walnut ugly digital memory best audit bleak rigid tiny help choose man pact grass salon robust dice also clap talk flee
-wasp plunge poem tray legend fabric myself crucial help number magnet best pretty addict skill rather common bus carpet harvest scatter fringe pigeon unusual
-position false mirror aisle service title expire word opera impact edge interest enrich bid during pumpkin midnight sugar pistol inhale kit usage betray vapor
-path shop soft sadness noise bar eternal swamp two special glide topic other turtle oblige man riot flavor loud chapter tunnel spy fish arch
-admit current anger only innocent patrol endorse flash coin rebuild earn glory east panel combine swarm prevent again salad hold erode blast pair guilt
-parrot vivid almost course cereal wood boost boost reason interest version proof palace unit during wear tackle spread latin grab pizza faint census escape
-love regret private stand expect occur faith type peasant rail reform barrel vanish able tag detect three climb ribbon monster silly shop stomach lawsuit
-face word segment fun wall cave view ticket quiz fan usual job legend caught fine flavor neutral erupt juice grid once ignore friend enroll
-worry either fresh broccoli satisfy cancel luggage atom wreck phone bar clutch arena sting candy deputy unusual casual warfare fresh bid damage crack rich
-expect path can canal elder mutual connect topple wire alley rely grant scrap eye payment body radio venue track reopen party lonely toss funny
-grocery toss minor expand engage never pupil hawk hockey alarm movie tragic yard base pause super absorb cable manual body absurd question toss learn
-truly hundred dog west economy path visual talent blush empower giraffe inhale moral physical bind offer unique future entire trumpet tag blue old pass
-foam dream strike record february muscle brush giraffe illness crunch runway solid hammer fragile nurse amused become fringe base boat remove senior trap chaos
-capable shine matter addict pull vicious forest faint this kind proud blade rail silk swarm annual body vehicle grief empty adult industry note fence
+word_list = [
+    "claw", "strong", "tortoise", "round", "episode", "buzz", "found", "connect", "skirt", "palm", "empower", "lunar", "raise",
+    "remove", "abandon", "romance", "time", "web", "trash", "major", "river", "wolf", "mercy", "table", "outdoor", "history",
+    "nurse", "fine", "crunch", "pull", "virtual", "hurdle", "license", "rescue", "depend", "brown", "tribe", "dose",
+    "online", "split", "banner", "toilet", "game", "agree", "draw", "staff", "permit", "robust", "size", "ahead", "sausage",
+    "impose", "airport", "equal", "offer", "demand", "among", "merit", "excuse", "welcome", "knock", "nut", "evil",
+    "gesture", "message", "bar", "sound", "deco", "rate", "canoe", "notice", "olive", "play", "admit", "dig", "n", "g",
+    "dignity", "weasel", "uniform", "element", "runway", "creek", "swarm", "arctic", "plunge", "slogan", "miracle",
+    "human", "moon", "flip", "nurse", "slow", "panda", "cabin", "boss", "corn", "pluck", "law", "lecture", "ability",
+    "student", "vanish", "ozone", "obtain", "grant", "anchor", "puppy", "auction", "north", "pride", "ghost", "plate",
+    "artist", "rude", "night", "perfect", "outer", "item", "october", "coil", "lamp", "clean", "similar", "escape",
+    "mesh", "rough", "charge", "word", "profit", "explain", "boost", "inform", "smoke", "source", "gun", "garbage",
+    "deny", "habit", "utility", "stadium", "soup", "width", "notice", "raccoon", "blossom", "kitten"
+]
+
+def check_word_in_sentence(sentence):
+    words = sentence.split()
+    has_word = False
+    for word in words:
+        if word in word_list:
+            has_word = True
+            print(f"'{word}' is in the word list.")
+    if not has_word:
+        print("No word from the list is in the sentence.")
+
+sentence = "The wolf howls at the full moon."
+check_word_in_sentence(sentence)
