@@ -24,4 +24,18 @@ MODELS = [
     ("Tiefighter 13B (United)", "KoboldAI/LLaMA2-13B-Tiefighter"),
     ("Echidna 13B (United)", "NeverSleep/Echidna-13b-v0.3"),
     ("HoloMax 13B (United)", "KoboldAI/LLaMA2-13B-Holomax"),
-    ("Emerhyst 1
+    ("Emerhyst 12B (United)", "KoboldAI/LLaMA2-12B-Emerhyst"),
+]
+
+# Prompt the user to select a model
+print("Select a model:")
+for i, (name, url) in enumerate(MODELS):
+    print(f"{i+1}. {name}")
+model_num = int(input("Enter the number of your selection: "))
+model = MODELS[model_num-1]
+
+# Download and extract the model
+print(f"Downloading and extracting {model[0]}...")
+model_url = f"https://huggingface.co/{model[1]}/resolve/main/model.zip"
+wget.download(model_url, out="model.zip")
+with zipfile.ZipFile("
