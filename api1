@@ -1,7 +1,24 @@
 #!/bin/bash
 
-# Create the JSON payload
+# Check if the argument is provided
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 <prompt>"
+  exit 1
+fi
+
+# Create the JSON payload with prompt
 payload=$(jq -n --arg prompt "$1" '{prompt: $prompt}')
 
-# Call the API with the JSON payload
-curl -s "https://free-api.cveoy.top/v3/completions" -X POST -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/2
+# Define the User-Agent header
+user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0"
+
+# Call the API with JSON payload and User-Agent header
+response=$(curl -s -w "%{http_code}" -o /dev/null -X POST -H "Content-Type: application/json" -H "User-Agent: $user_agent" "https://free-api.cveoy.top/v3/completions" --data "$payload")
+
+# Check if the request is successful (status code 200)
+if [[ "$response" != *"200"* ]]; then
+  echo "Error: API request failed with status code: ${response#* }"
+  exit 1
+fi
+
+# Process the API response here if needed
