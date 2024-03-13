@@ -1,36 +1,8 @@
 #!/bin/bash
 
 # Define constants
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 SHORTCUTS_DIR="$HOME/.shortcuts"
-TRANSLATE_SH="/path/to/translate.sh"
+TRANSLATE_SH="$SCRIPT_DIR/translate.sh"
 SCRIPT_NAME="$(basename "$0")"
-
-# Create shortcuts directory if it doesn't exist
-mkdir -p "$SHORTCUTS_DIR"
-
-# Copy translate.sh to shortcuts directory if it doesn't exist there
-if [ ! -f "$SHORTCUTS_DIR/translate.sh" ]; then
-    cp "$TRANSLATE_SH" "$SHORTCUTS_DIR/translate.sh"
-fi
-
-# Check if translate.sh exists and is executable
-if [ ! -x "$SHORTCUTS_DIR/translate.sh" ]; then
-    echo "Error: $SHORTCUTS_DIR/translate.sh not found or not executable!"
-    exit 1
-fi
-
-# Source translate.sh
-if ! source "$SHORTCUTS_DIR/translate.sh"; then
-    echo "Error: Failed to source $SHORTCUTS_DIR/translate.sh"
-    exit 1
-fi
-
-# Rest of your script
-# ...
-
-# Example of running a command that requires permission
-# Replace /path/to/yourfile.html with the actual path
-if ! nohup open -a "Google Chrome" /path/to/yourfile.html &> nohup.out; then
-    echo "Error: Failed to open HTML file in Google Chrome"
-fi
 
