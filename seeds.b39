@@ -1,27 +1,27 @@
 word_list = [
-    "claw", "strong", "tortoise", "round", "episode", "buzz", "found", "connect", "skirt", "palm", "empower", "lunar", "raise",
-    "remove", "abandon", "romance", "time", "web", "trash", "major", "river", "wolf", "mercy", "table", "outdoor", "history",
-    "nurse", "fine", "crunch", "pull", "virtual", "hurdle", "license", "rescue", "depend", "brown", "tribe", "dose",
-    "online", "split", "banner", "toilet", "game", "agree", "draw", "staff", "permit", "robust", "size", "ahead", "sausage",
-    "impose", "airport", "equal", "offer", "demand", "among", "merit", "excuse", "welcome", "knock", "nut", "evil",
-    "gesture", "message", "bar", "sound", "deco", "rate", "canoe", "notice", "olive", "play", "admit", "dig", "n", "g",
-    "dignity", "weasel", "uniform", "element", "runway", "creek", "swarm", "arctic", "plunge", "slogan", "miracle",
-    "human", "moon", "flip", "nurse", "slow", "panda", "cabin", "boss", "corn", "pluck", "law", "lecture", "ability",
-    "student", "vanish", "ozone", "obtain", "grant", "anchor", "puppy", "auction", "north", "pride", "ghost", "plate",
-    "artist", "rude", "night", "perfect", "outer", "item", "october", "coil", "lamp", "clean", "similar", "escape",
-    "mesh", "rough", "charge", "word", "profit", "explain", "boost", "inform", "smoke", "source", "gun", "garbage",
-    "deny", "habit", "utility", "stadium", "soup", "width", "notice", "raccoon", "blossom", "kitten"
+    "claw", "strong", "tortoise", "round", "episode", "buzz", "found", "connect", "skirt", "palm", "empower", "lunar",
+    "raise", "remove", "abandon", "romance", "time", "web", "trash", "major", "river", "wolf", "mercy", "table",
+    "outdoor", "history", "nurse", "fine", "crunch", "pull", "virtual", "hurdle", "license", "rescue", "depend",
+    "brown", "tribe", "dose", "online", "split", "banner", "toilet", "game", "agree", "draw", "staff", "permit",
+    "robust", "size", "ahead", "sausage", "impose", "airport", "equal", "offer", "demand", "among", "merit",
+    "excuse", "welcome", "knock", "nut", "evil", "gesture", "message", "bar", "sound", "deco", "rate", "canoe",
+    "notice", "olive", "play", "admit", "dig", "n", "g", "dignity", "weasel", "uniform", "element", "runway",
+    "creek", "swarm", "arctic", "plunge", "slogan", "miracle", "human", "moon", "flip", "nurse", "slow", "panda",
+    "cabin", "boss", "corn", "pluck", "law", "lecture", "ability", "student", "vanish", "ozone", "obtain", "grant",
+    "anchor", "puppy", "auction", "north", "pride", "ghost", "plate", "artist", "rude", "night", "perfect", "outer",
+    "item", "october", "coil", "lamp", "clean", "similar", "escape", "mesh", "rough", "charge", "word", "profit",
+    "explain", "boost", "inform", "smoke", "source", "gun", "garbage", "deny", "habit", "utility", "stadium", "soup",
+    "width", "raccoon", "blossom", "kitten"
 ]
 
+word_set = set(word_list)
+
 def check_word_in_sentence(sentence):
-    words = sentence.split()
+    try:
+        words = sentence.split()
+    except AttributeError:
+        return False
+
     has_word = False
     for word in words:
-        if word in word_list:
-            has_word = True
-            print(f"'{word}' is in the word list.")
-    if not has_word:
-        print("No word from the list is in the sentence.")
-
-sentence = "The wolf howls at the full moon."
-check_word_in_sentence(sentence)
+        word = word.lower()
