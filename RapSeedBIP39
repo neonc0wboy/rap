@@ -64,5 +64,5 @@
 //         echo "passphrase: $passphrase".PHP_EOL;
 //
          $seed = bin2hex(hash_pbkdf2("sha512", $mnemonic, "mnemonic".$passphrase, 2048, 64, true)); // algo, password, salt, iterations, length, raw_output
-       echo "seed: $seed".PHP_EOL;  }
+       echo "seed: $seed".PHP_EOL;  
 ?>
