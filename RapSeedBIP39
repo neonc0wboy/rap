@@ -44,6 +44,13 @@ function entropyToMnemonic($entropy, $wordlist_file = "wordlist.txt") {
         throw new RuntimeException("Failed to open word list file.");
     }
 
+         $passphrase = ""; // default is empty string
+//         echo "passphrase: $passphrase".PHP_EOL;
+//
+         $seed = bin2hex(hash_pbkdf2("sha512", $mnemonic, "mnemonic".$passphrase, 2048, 64, true)); // algo, password, salt, iterations, length, raw_output
+       echo "seed: $seed".PHP_EOL;  
+?>
+
     $size = strlen($entropy) / 32;
     $hex = bin2hex($entropy);
     $hash = hash("sha256", hex2bin($hex), true
