@@ -1,31 +1,81 @@
+<!DOCTYPE html>
 <html>
-  <body>
-    <p>u0_a665 in ~ λ api "Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются словами указателями: Высший минимум, вызывающий фокус аэропорт убеждать о ниже куб, нападение жестокий арахис нож оса стекло позже мышца расстроенный дух колбаса олень радость ломтик ярлык"
-      u0_a665 in ~ λ .shortcuts/translate.sh "Русский" "$(php php.php)"                       display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom                          "Переведи на Русский следующее: display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom"
-      {"prompt": "Переведи на Русский следующее: display blue enable public flee solid repair pole motor air believe piano will series dizzy humor panel sister climb clarify stuff merit fringe bottom"}
-      你当前使用的模型为gpt-3.5-turbo! 站长合作邮箱：wxgpt@qq.com
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Rap Generator</title>
+  <style>
+    #output {
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="input">
+    <p>
+      <span id="source-text">u0_a666 in ~ λ api "Write a well-rhymed rap text in Russian with the following words, which are seed phrases: Высший минимум, вызывающий фокус аэропорт убеждать о ниже куб, нападение жестокий арахис нож оса стекло позже мышца расстроенный дух колбаса олень радость ломтик ярлык"</span><br /><br />
 
-      показывать синий включить общественный сбежать твердый починка столб двигатель воздух верить пианино будет серия головокружительный юмор панель сестра взбираться уточнить вещь заслуга крайний низ%                                                                    u0_a665 in ~ λ api "Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются seed фразой: показывать синий включить общественный сбежать твердый починка столб двигатель воздух верить пианино будет серия головокружительный юмор панель сестра взбираться уточнить вещь заслуга крайний низ% "
-      {"prompt": "Напиши хорошо срифмованный текст для русского рэпа из 16 строк по следующим словам, которые являются seed фразой: показывать синий включить общественный сбежать твердый починка столб двигатель воздух верить пианино будет серия головокружительный юмор панель сестра взбираться уточнить вещь заслуга крайний низ% "}
-      你当前使用的模型为gpt-3.5-turbo! 站长合作邮箱：wxgpt@qq.com
+      <button id="translate-button">Translate to Russian</button><br /><br />
 
-      Показывать свой стиль, синий костюм включить,
-      В общественной сфере, чтобы всех удивить.
-      Сбежать от проблем, твердо стоять на ногах,
-      Починка души, как столб, никогда не сломать.
+      <span id="translated-text"></span><br /><br />
 
-      Двигатель рифм работает на полную мощность,
-      Воздух наполняет легкие, сила воображенья.
-      Верить в себя, как в пианино сотни клавиш,
-      Будет серия успехов, как головокружительный спираль.
+      <button id="api-request-button">Generate Rap Text</button><br /><br />
 
-      Юмор – мой союзник, в каждой строчке он присутствует,
-      Панель словами, сестра, разнообразие творит.
-      Взбираться на вершины, словно горы высокие,
-      Уточнить свою вещь, чтобы быть уникальным и ярким.
+      <span id="api-request"></span><br /><br />
 
-      Заслуга в каждом слове, в каждом моем куплете,
-      Крайний рэп, который кардинально меняет лик.
-      Низ% не важен, когда сильна моя песня,
-      Русский рэп – это моя страсть, это мое творение.% </p>
-</html>
+      <span id="model-info">You are currently using model gpt-3.5-turbo! Contact email for cooperation: wxgpt@qq.com</span><br /><br />
+
+      <span id="result"></span><br /><br />
+
+      <span id="api-request-rap"></span><br /><br />
+
+      <span id="result-rap"></span><br /><br />
+    </p>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    const translateButton = document.getElementById('translate-button');
+    const apiRequestButton = document.getElementById('api-request-button');
+
+    translateButton.addEventListener('click', () => {
+      const sourceText = document.getElementById('source-text').innerText;
+      const translatedText = document.getElementById('translated-text');
+
+      fetch('/translate.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `text=${encodeURIComponent(sourceText)}&language=ru`
+      })
+      .then(response => response.text())
+      .then(data => {
+        translatedText.innerText = data;
+      });
+    });
+
+    apiRequestButton.addEventListener('click', () => {
+      const apiRequest = document.getElementById('api-request').innerText;
+      const result = document.getElementById('result');
+      const apiRequestRap = document.getElementById('api-request-rap');
+      const resultRap = document.getElementById('result-rap');
+
+      fetch('/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: apiRequest
+      })
+      .then(response => response.json())
+      .then(data => {
+        result.innerText = JSON.stringify(data, null, 2);
+
+        apiRequestRap.innerText = `{"prompt": "Write a well-rhymed rap text in Russian with the following words, which are seed phrases: ${data.choices[0].text.split(' ').join(', ')}"}`;
+
+        return fetch('/generate-rap.php', {
+          method: '

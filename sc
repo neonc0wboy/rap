@@ -1,20 +1,24 @@
-php ./ph > cipherseeds
+#!/bin/bash
 
-python3 -c "col = []
+# Execute the PHP command and save the output to a file
+php ./php > cipherseeds
 
-# Open the file
-with open('cipherseeds') as words:
-     for word in words:
-       col.append(word)
+# Read the contents of the file into an array using mapfile
+mapfile -t col < cipherseeds
 
-# Print the resulting array
-for cols in col:
-  print(cols)" >> linenums
+# Print each element of the array on a new line and append to a file
+for cols in "${col[@]}"; do
+  echo "$cols" >> linenums
+done
 
-cat linenums 
+# Read the first line of the file and extract the number
+num=$(head -n 1 linenums | grep -o '[0-9]*')
 
-set word $(sed -n 'p' wordlist.txt )
-  # ['word1', 'word2', 'word3', 'word4']"
-#words = 
-#for $word in $words:
-#= $(head -n 1 cipherseeds | grep [0-9])
+# Read the wordlist file into an array
+mapfile -t words < wordlist.txt
+
+# Extract the first word from the array
+word=${words[0]}
+
+# Print the extracted values
+echo "Number: $num, Word: $word"

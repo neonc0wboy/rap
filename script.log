@@ -1,17 +1,8 @@
-nohup: ignoring input
-nohup: failed to run command './script.sh': No such file or directory
-nohup: ignoring input
-nohup: failed to run command 'script.sh': No such file or directory
-nohup: ignoring input
-/data/data/com.termux/files/home/projects/rap/rap/script.sh: line 3: .shortcuts/translate.sh: No such file or directory
+#!/bin/bash
 
-nohup: ignoring input
-
-nohup: ignoring input
-
-nohup: ignoring input
-nohup: failed to run command '/data/data/com.termux/files/home/projects/rap/rap/index.html': Permission denied
-nohup: ignoring input
-nohup: failed to run command './index.html': Permission denied
-nohup: ignoring input
+# Define constants
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SHORTCUTS_DIR="$HOME/.shortcuts"
+TRANSLATE_SH="$SCRIPT_DIR/translate.sh"
+SCRIPT_NAME="$(basename "$0")"
 

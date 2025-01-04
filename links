@@ -1,5 +1,33 @@
-https://www.blackbox.ai/agent/RapTextgeneratorUwpep8K
-https://www.blackbox.ai/agent/Privkeys33mkQNa
-https://www.blackbox.ai/agent/PrivkeysqRAEGsu
-https://www.blackbox.ai/agent/seedgeneratorZXBDzAA
+import requests
 
+# Define the URL for the API endpoint
+url = "https://www.blackbox.ai/api/agents"
+
+# Define the headers for the API request
+headers = {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json",
+}
+
+# Define the payload for the API request
+payload = {
+    "agents": [
+        "RapTextgeneratorUwpep8K",
+        "Privkeys33mkQNa",
+        "PrivkeysqRAEGsu",
+        "seedgeneratorZXBDzAA"
+    ]
+}
+
+# Make the API request
+response = requests.post(url, headers=headers, json=payload)
+
+# Check the status code of the response
+if response.status_code == 200:
+    # Parse the JSON response
+    agents = response.json().get('agents', [])
+
+    # Do something with the agents...
+else:
+    # Handle the error...
+    print(f"Error: {response.status_code} {response.reason}")

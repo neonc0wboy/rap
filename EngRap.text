@@ -1,8 +1,31 @@
-{"timestamp":"2023-12-12T02:07:25.155+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:09:40.390+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:10:00.781+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:10:52.210+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:11:30.065+00:00","status":400,"error":"Bad Request","path":"/v3/completions"}{"timestamp":"2023-12-12T02:11:51.493+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:12:15.214+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2023-12-12T02:19:17.963+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
-{"timestamp":"2024-02-25T09:42:18.702+00:00","status":400,"error":"Bad Request","path":"/v3/completions"} 
+import requests
+import time
+
+def make\_request(url):
+response = requests.post(url)
+
+if response.status\_code >= 400:
+print(f"Request failed with status code {response.status_code}")
+return None
+
+return response.json()
+
+def log\_request(request\_data):
+timestamp = request\_data["timestamp"]
+status = request\_data["status"]
+error = request\_data["error"]
+path = request\_data["path"]
+
+print(f"{timestamp} - Status: {status}, Error: {error}, Path: {path}")
+
+def main():
+url = "https://api.example.com/v3/completions"
+
+failed\_requests = [
+{"timestamp":"2023-12-12T02:07:25.155+00:00","status":400,"error":"Bad Request","path":"/v3/completions"},
+{"timestamp":"2023-12-12T02:09:40.390+00:00","status":400,"error":"Bad Request","path":"/v3/completions"},
+{"timestamp":"2023-12-12T02:10:00.781+00:00","status":400,"error":"Bad Request","path":"/v3/completions"},
+{"timestamp":"2023-12-12T02:10:52.210+00:00","status":400,"error":"Bad Request","path":"/v3/completions"},
+{"timestamp":"2023-12-12T02:11:30.065+00:00","status":400,"error":"Bad Request","path":"/v3/completions"},
+{"timestamp":"2023-12-12T02:12:15.421+00:00","status":400,"error":"Bad Request","path":"/v3/completions"},
+{"

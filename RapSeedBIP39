@@ -1,64 +1,48 @@
-#!/bin/php
-
+#!/usr/bin/php
 <?php
 
-// -------------------
-// // 1. Generate Entropy
-// // -------------------
-//
-// // a. Use Own Entropy (Binary)
-// $entropy = "0110101001101101101110100111010101010010010111010111110111011101010011110101100011010001111011110100111001100000001101000101101110110000010010001110101101011011101010000010111101100000100101100000111000101000110000001111010010100000101011000000111010001110";
-//
-// // b. Use Own Entropy (Hexadecimal)
-// $hex = "c0ba5a8e914111210f2bd131f3d5e08d";
- //$raw = hex2bin($hex); // convert to raw bytes
-// $length = (strlen($raw)/2)*8*2; // calculate expected number of bits in binary representation (so we can pad result to correct number of bits)
- //$entropy = str_pad(gmp_strval(gmp_init(bin2hex($raw), 16), 2), $length, "0", STR_PAD_LEFT);
-// echo "entropy: $entropy".PHP_EOL;
-//
-// // c. Generate Entropy
- $length  = 256; // How many bits of entropy you want
- $urandom = fopen('/dev/urandom', 'r');
- $bytes   = fread($urandom, $length/8);  // Get raw bytes (8 bits in a byte)
- $entropy = str_pad(gmp_strval(gmp_init(bin2hex($bytes), 16), 2), $length, "0", STR_PAD_LEFT); // Convert to binary (10110111...) (pad zeros)
-// echo "entropy: $entropy".PHP_EOL;
-//
-// // ----------------------
-// // 2. Entropy to Mnemonic
-// // ----------------------
-//
-// // 1. Create Checksum
- $size = strlen($entropy) / 32; // 1 bit of checksum for every 32 bits of entropy
- $hex = str_pad(gmp_strval(gmp_init($entropy, 2), 16), strlen($entropy)/8*2, "0", STR_PAD_LEFT); // convert entropy back to hexadecimal ready to be hashed
- $hash = hash("sha256", hex2bin($hex)); // hash raw binary of entropy (bin > hex > rawbinary)
- $checksum = substr(str_pad(gmp_strval(gmp_init($hash, 16), 2), 256, "0", STR_PAD_LEFT), 0, $size); // hex > dec > bin, pad with zeros, take size bits
-// echo "checksum: $checksum".PHP_EOL;
-//
-// // 2. Combine and split in to groups of 11 bits (32 bits + 1 bit entropy will always be a multiple of 11)
- $pieces = str_split($entropy.$checksum, 11);
-//
-// // 3. Get the wordlist as an array
- $wordlist = file("wordlist.txt", FILE_IGNORE_NEW_LINES); // file() reads file in to an array
-//
-// // 4. Convert groups of 11 bits in to decimal and store the corresponding word 
- $words = [];
- foreach ($pieces as $piece) {
-     $i = bindec($piece); // e.g. 01101010011 => 851
-         $words[] = $wordlist[$i];
-         }
-         $mnemonic = implode(" ", $words); // Convert to a sentence (string of words separated by spaces)
-         echo "$mnemonic".PHP_EOL;
-//
-//         // -------------------
-//         // 3. Mnemonic to Seed
-//         // -------------------
-//         // Password-Based Key Derivation Function 2
-//
-//         // Password   = mnemonic sentence (UTF-8 NFKD)
-//         // Salt       = "mnemonic" + passphrase (UTF-8 NFKD)
-         // Iterations = 2048 and HMAC-SHA512
-         // Algorithm  = HMAC-SHA512 (the pseudo-random function)
-         // Length     = 512 bits (64 bytes)
+/**
+ * Generate entropy using /dev/urandom
+ *
+ * @param int $length The length of the entropy in bits. Defaults to 256.
+ * @return string The entropy as a binary string.
+ * @throws InvalidArgumentException If the length is not a multiple of 8 or is less than 1.
+ * @throws RuntimeException If opening /dev/urandom fails.
+ */
+function generateEntropy($length = 256) {
+    if (!is_int($length) || $length < 1 || $length % 8 != 0) {
+        throw new InvalidArgumentException("Length must be a multiple of 8 and greater than 0.");
+    }
+
+    $urandom = fopen('/dev/urandom', 'rb');
+    if (!$urandom) {
+        throw new RuntimeException("Failed to open /dev/urandom.");
+    }
+
+    $bytes = fread($urandom, $length/8);
+    fclose($urandom);
+
+    return $bytes;
+}
+
+/**
+ * Convert entropy to a mnemonic phrase
+ *
+ * @param string $entropy The entropy as a binary string.
+ * @param string $wordlist_file The path to the word list file. Defaults to 'wordlist.txt'.
+ * @return string The mnemonic phrase as a space-separated string.
+ * @throws InvalidArgumentException If the entropy length is not a multiple of 8.
+ * @throws RuntimeException If opening the word list file fails.
+ */
+function entropyToMnemonic($entropy, $wordlist_file = "wordlist.txt") {
+    if (strlen($entropy) % 8 != 0) {
+        throw new InvalidArgumentException("Entropy length must be a multiple of 8.");
+    }
+
+    $wordlist = file($wordlist_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($wordlist === false) {
+        throw new RuntimeException("Failed to open word list file.");
+    }
 
          $passphrase = ""; // default is empty string
 //         echo "passphrase: $passphrase".PHP_EOL;
@@ -66,3 +50,7 @@
          $seed = bin2hex(hash_pbkdf2("sha512", $mnemonic, "mnemonic".$passphrase, 2048, 64, true)); // algo, password, salt, iterations, length, raw_output
        echo "seed: $seed".PHP_EOL;  
 ?>
+
+    $size = strlen($entropy) / 32;
+    $hex = bin2hex($entropy);
+    $hash = hash("sha256", hex2bin($hex), true
