@@ -1,0 +1,12 @@
+[build]
+builder = "RAILPACK"
+nixpacksPlan = {"providers":["php","...","python"]}
+
+[deploy]
+runtime = "V2"
+numReplicas = 1
+preDeployCommand = ["npm run test"]
+sleepApplication = false
+multiRegionConfig = {"us-west2":{"numReplicas":1}}
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
