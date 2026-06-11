@@ -61,7 +61,7 @@ console.log(r);
 
                 var userInput = $('#input').val();
                 
-                    var jsonData = JSON.parse(userInput,seed);
+                    var jsonData = JSON.parse(userInput);
                     postData("https://free-api.cveoy.top/v3/completions", JSON.stringify(jsonData))
                         .then((response) => {
                             console.log(response);
