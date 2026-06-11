@@ -60,7 +60,7 @@ console.log(r);
                 var seed = sendRequest();
 
                     const jsonData = JSON.parse(JSON.stringify(userInput));
-                    postData("https://free-api.cveoy.top/v3/completions", JSON.stringify(jsonData))
+                    postData("https://free-api.cveoy.top/v3/completions", jsonData)
                         .then((response) => {
                             console.log(response);
                             document.getElementById("demonName").textContent = response;
