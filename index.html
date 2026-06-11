@@ -49,7 +49,7 @@
 var response = await fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
                 .then((response) => {
          var  seed_words = response;
-                    console.log(seed_words.text());
+                    console.log(seed_words);
                     document.getElementById("seed").textContent = seed_words.text();
                 })
                 .catch(error => {
