@@ -50,15 +50,15 @@ response =  fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=
                     var r = await seed_words.text();
 console.log(r);
                     document.getElementById("seed").textContent = r;
-                               document.getElementById("requestForm").textContent = document.getElementById("requestForm").textContent+r;
         };
 
+                   
         $(document).ready(function() {
             $('#requestForm').submit(function(event) {
                 event.preventDefault();
-                var userInput = $('#input').val();
+                var userInput =('{"prompt":" Напиши рэп-текст на русском языке. Используй seed в конце описаания Требования: - Полностью на русском языке - Длина: 32-48 строки (2-3 куплета + припевы - Используй близкие точные акцентные рифмы, желательно панторифмы и ритм, характерные для русского рэпа -  Сюжет должен ОБЯЗАТЕЛЬНО включать интерпретацию каждого seed-слова, желательно с акцентом на этом слове - Стиль: современный русский рэп - Включи припев (hook) - Будь креативным и оригинальным seed:"'+document.getElementById("seed")+'"}');
                 var seed = sendRequest();
-                try {
+
                     const jsonData = JSON.parse(JSON.stringify(userInput));
                     postData("https://free-api.cveoy.top/v3/completions", JSON.stringify(jsonData))
                         .then((response) => {
