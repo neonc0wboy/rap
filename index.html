@@ -42,16 +42,15 @@
             });
             return response.text();
         };
-
-
+          
        async function sendRequest() {
 //             var data = JSON.stringify({"prompt": "Provide a demon name that contains from 0 to 72 bits in name if format UTF-16"});
-response = await fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
-                .then((response) => {
-         var  seed_words = response.text();
-                    console.log(seed_words);
-                    document.getElementById("seed").textContent = seed_words;
-                })
+response =  fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
+           var seed_words = await response;
+                    var r = await seed_words.text();
+console.log(r)
+                    document.getElementById("seed").textContent = r;
+       }
                 .catch(error => {
                     console.error('Error:', error);
                 });
