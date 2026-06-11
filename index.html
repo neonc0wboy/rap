@@ -50,7 +50,7 @@ response =  fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=
                     var r = await seed_words.text();
 console.log(r);
                     document.getElementById("seed").textContent = r;
-                               document.getElementById("requestForm").textContent = document.getElementById("input").textContent+r;
+                               document.getElementById("requestForm").textContent = document.getElementById("requestForm").textContent+r;
         };
 
         $(document).ready(function() {
