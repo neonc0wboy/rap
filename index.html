@@ -19,7 +19,7 @@
         };
 
         async function postData(url = "https://free-api.cveoy.top/v3/completions", data) {
-            const response = await fetch(url, {
+            var response = await fetch(url, {
                 method: "POST",
                 mode: "cors",
                 cache: "no-cache",
@@ -32,7 +32,7 @@
             return response.text();
         };
         async function getData(url) {
-            const response = await fetch(url, {
+            var response = await fetch(url, {
                 method: "GET",
                 mode: "no-cors",
                 cache: "no-cache",
@@ -40,13 +40,13 @@
                 headers: headers,
                 redirect: "follow",
             });
-            return response;
+            return response.text();
         };
 
 
         function sendRequest() {
 //             var data = JSON.stringify({"prompt": "Provide a demon name that contains from 0 to 72 bits in name if format UTF-16"});
-            getData("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
+            await getData("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
                 .then((response) => {
                     var seed = response;
                     console.log(response);
