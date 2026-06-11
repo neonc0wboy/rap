@@ -65,9 +65,6 @@ console.log(r);
                             console.log(response);
                             document.getElementById("demonName").textContent = response;
                             document.getElementById("seed").textContent = response;
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
                         });
                 } catch (e) {
                     console.error('Invalid JSON input');
