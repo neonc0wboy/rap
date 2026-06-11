@@ -50,7 +50,7 @@ response =  fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=
                     var r = await seed_words.text();
 console.log(r);
                     document.getElementById("seed").textContent = r;
-                               document.getElementById("input").textContent = document.getElementById("input").textContent+r;
+                               document.getElementById("requestForm").textContent = document.getElementById("input").textContent+r;
         };
 
         $(document).ready(function() {
@@ -59,7 +59,7 @@ console.log(r);
                 var userInput = $('#input').val();
                 var seed = sendRequest();
                 try {
-                    const jsonData = JSON.parse(JSON.stringify(userInput, seed));
+                    const jsonData = JSON.parse(JSON.stringify(userInput));
                     postData("https://free-api.cveoy.top/v3/completions", JSON.stringify(jsonData))
                         .then((response) => {
                             console.log(response);
