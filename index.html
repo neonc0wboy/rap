@@ -30,14 +30,28 @@
                 body: data
             });
             return response.text();
-        }
+        };
+        async function getData(url) {
+            const response = await fetch(url, {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "omit",
+                headers: headers,
+                redirect: "follow",
+                referrerPolicy: "unsafe-url",
+                body: data
+            });
+            return response.text();
+        };
+
 
         function sendRequest() {
-             var data = JSON.stringify({"prompt": "Provide a demon name that contains from 0 to 72 bits in name if format UTF-16"});
-            postData("https://free-api.cveoy.top/v3/completions", data)
+//             var data = JSON.stringify({"prompt": "Provide a demon name that contains from 0 to 72 bits in name if format UTF-16"});
+            getData("https://free-api.cveoy.top/v3/completions")
                 .then((response) => {
                     console.log(response);
-                    document.getElementById("demonName").textContent = response;
+                    document.getElementById("seed").textContent = response;
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -55,6 +69,7 @@
                         .then((response) => {
                             console.log(response);
                             document.getElementById("demonName").textContent = response;
+                            document.getElementById("seed").textContent = response;
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -78,6 +93,8 @@
         <input type="submit" value="Submit">
     </form>
 
+    <div id="seed"><p></p></div>
+    
     <div id="demonName"><p></p></div>
 </body>
 </html>
