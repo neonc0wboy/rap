@@ -46,11 +46,11 @@
 
        async function sendRequest() {
 //             var data = JSON.stringify({"prompt": "Provide a demon name that contains from 0 to 72 bits in name if format UTF-16"});
-            var response = fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
+var response = await fetch("https://rap0boy.pythonanywhere.com/generate_random_seed?lang=ru")
                 .then((response) => {
-                    var seed_words = response;
+         var  seed_words = response;
                     console.log(seed_words.text());
-                    document.getElementById("seed").textContent = seed_words;
+                    document.getElementById("seed").textContent = seed_words.text();
                 })
                 .catch(error => {
                     console.error('Error:', error);
